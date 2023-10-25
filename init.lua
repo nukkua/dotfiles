@@ -93,7 +93,33 @@ vim.g.nvim_tree_root_folder_modifier = ":~" -- Esto mostrará la raíz del árbo
 
 -- NVIM icons of the tree
 require'nvim-web-devicons'.setup {
-  -- tu configuración aquí
+   default = '',
+   symlink = '',
+   git = {
+      unstaged = "✗",
+      staged = "✓",
+      unmerged = "",
+      renamed = "➜",
+      untracked = "★",
+      deleted = "",
+      ignored = "◌"
+   },
+   folder = {
+      arrow_open = "",
+      arrow_closed = "",
+      default = "",
+      open = "",
+      empty = "",
+      empty_open = "",
+      symlink = "",
+      symlink_open = "",
+   },
+   lsp = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+  },-- tu configuración aquí
 }
 
 
@@ -101,15 +127,18 @@ require'nvim-web-devicons'.setup {
 -- TREESITER
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"python", "javascript", "html", "css", "bash", "lua", "rust", "go", "php", "typescript","svelte", "dart"},
+  ensure_installed = {"python", "javascript", "html", "css", "bash", "lua", "rust", "go", "php", "typescript","svelte", "dart", "zig","kotlin","c","latex","sql", "dart"},
   highlight = {
     enable = true,
   },
   autotag = {
     enable = true,
   },
+  auto_install = true,
+	 
 }
 
+	
 -- Atajos:
 vim.api.nvim_set_keymap('n', '<Space>w', ':w<CR>', { noremap = true, silent = true })
 
@@ -138,6 +167,7 @@ lspconfig.rust_analyzer.setup{}
 lspconfig.clangd.setup{}
 lspconfig.html.setup{}
 lspconfig.tsserver.setup{}
+-- lspconfig.javascript.setup{}
 lspconfig.svelte.setup{
    cmd = { "svelteserver", "--stdio" },
    filetypes = { "svelte" },
@@ -172,6 +202,10 @@ require('packer').startup(function()
   'tpope/vim-commentary',
   -- 'hrsh7th/cmp-buffer',
   -- 'hrsh7th/cmp-nvim-lsp',
+  -- 'nvim-lua/telescope.nvim',
+  -- 'nvim-telescope/telescope-fzf-native.nvim',
+  -- 'ThePrimeagen/harpoon',
+
   'windwp/nvim-autopairs', 
   'hrsh7th/nvim-compe',
   'junegunn/fzf.vim',
@@ -180,7 +214,6 @@ require('packer').startup(function()
 
 
     }
-
 
 end)
 
@@ -195,7 +228,13 @@ vim.cmd[[ hi NormalNC guibg=NONE ctermbg=NONE ]]
 vim.cmd[[ hi VertSplit guibg=NONE ctermbg=NONE ]]
 vim.cmd[[ hi EndOfBuffer guibg=NONE ctermbg=NONE ]]
 
-
+vim.cmd[[highlight NvimTreeFolderIcon guifg=#FFC0CB]]
+vim.cmd[[highlight NvimTreeFolderName guifg=#FFC0CB]]
+vim.cmd[[highlight NvimTreeIndentMarker guifg=#FFC0CB]]
+vim.cmd[[highlight NvimTreeFileRenamed guifg=#FFC0CB]]
+vim.cmd[[highlight NvimTreeFileName guifg=#FFC0CB]]
+vim.cmd[[highlight NvimTreeImageFile guifg=#FFC0CB]]
+vim.cmd[[highlight NvimTreeSpecialFile guifg=#FFC0CB]]
 -- INTELLISENSE
 -- local cmp = require'cmp'
 
@@ -295,13 +334,18 @@ require'compe'.setup {
 
 
 -- Configuración de línea de números
-vim.wo.number = true
+-- vim.wo.number = true
+
+vim.opt.relativenumber = true
+vim.opt.number = true
 
 -- Indentación
 vim.bo.tabstop = 4
 vim.bo.shiftwidth = 4
 vim.bo.softtabstop = 4
-vim.bo.expandtab = true
+-- vim.bo.expandtab = true
+
+
 
 -- highlight line
 vim.opt.cursorline = true
