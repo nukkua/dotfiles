@@ -1,9 +1,12 @@
 vim.opt.clipboard:append("unnamedplus")
-
 -- Spliting windows
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
+
+
+
+-- Para netrw
 
 
 
@@ -25,22 +28,18 @@ vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab"
 vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
 
 
-vim.g.nvim_tree_highlight_opened_files = 1
--- Configuraciones para NvimTree
 
-vim.g.nvim_tree_side = 'left' -- Lado en el que se abre el NvimTree
-vim.g.nvim_tree_width = 20 -- Define el ancho del NvimTree
-vim.g.nvim_tree_indent_markers = 1 -- Esto muestra los marcadores de sangría como en NetBeans
-vim.g.nvim_tree_hide_dotfiles = 1 -- 0 muestra los archivos ocultos
-vim.g.nvim_tree_git_hl = 1 -- Resalta los archivos que están en el estado git
-vim.g.nvim_tree_root_folder_modifier = ":~" -- Esto mostrará la raíz del árbol como el directorio del proyecto actual
+vim.keymap.set("n", "<leader>p", "\"_dP", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
+
+vim.api.nvim_set_keymap('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
+vim.g.nvim_tree_highlight_opened_files = 1
 
 
 vim.api.nvim_set_keymap('n', '<Space>w', ':w<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<Space>q', ':q<CR>', { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<Space>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Space>e', ':Neoformat<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<Space>f', ':Files<CR>', { noremap = true, silent = true })
 
@@ -82,3 +81,6 @@ vim.bo.softtabstop = 4
 -- highlight line
 vim.opt.cursorline = true
 
+
+-- Configuración de atajo para abrir netrw
+vim.api.nvim_set_keymap('n', '<C-h>', ':Explore<CR>', { noremap = true, silent = true })

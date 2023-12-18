@@ -19,17 +19,20 @@ vim.opt.termguicolors = true
 
 require('packer').startup(function(use)
     -- Packer can manage itself
-    use ('wbthomason/packer.nvim')
+	use ('wbthomason/packer.nvim')
+	use 'sbdchd/neoformat'
 	use ('tpope/vim-commentary')
 	use ('kyazdani42/nvim-web-devicons')
+	use ('MaxMEllon/vim-jsx-pretty')
 	use ('junegunn/fzf.vim')
 	use ('mattn/emmet-vim')
+	use ('machakann/vim-sandwich')
     -- use {
     --     'nvim-telescope/telescope.nvim', tag = '0.1.3',
     --     -- or                            , branch = '0.1.x',
     --     requires = { {'nvim-lua/plenary.nvim'} }
     -- }
-
+    use("folke/zen-mode.nvim")
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
     use('nvim-treesitter/playground')
     -- use('theprimeagen/harpoon')
@@ -51,12 +54,16 @@ require('packer').startup(function(use)
 
             -- LSP Support
             {'neovim/nvim-lspconfig'},
+	    {'hrsh7th/cmp-buffer'},
+ 	    {'hrsh7th/cmp-path'},
+ 	    {'saadparwaiz1/cmp_luasnip'},
             -- Autocompletion
             {'hrsh7th/nvim-cmp'},
             {'hrsh7th/cmp-nvim-lsp'},
-
+	    {'hrsh7th/cmp-nvim-lua'},
             -- Snippets
             {'L3MON4D3/LuaSnip'},
+	    {'rafamadriz/friendly-snippets'},
         }
     }
 
@@ -64,6 +71,7 @@ require('packer').startup(function(use)
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
     }
+
 
 end)
 -- vim.cmd[[colorscheme tokyonight]]
@@ -90,12 +98,61 @@ require'colorsget'
 require'keymappings'
 require'plugins.lualine'
 require'plugins.undotree'
--- require'plugins.tree'
 require'plugins.webdevicons'
 require'plugins.treesiter'
 require'plugins.lsp'
--- require'plugins.autopairs'
--- require'plugins.compe'
+
+
+local cmp = require'cmp'
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      require'luasnip'.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Acepta la selección con Enter
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = 'buffer' },
+    { name = 'path' }
+  })
+})
+
+-- Configuración de autopairs para trabajar con nvim-cmp
+local autopairs = require('nvim-autopairs')
+autopairs.setup({
+  check_ts = true,
+  ts_config = {
+    -- lista de lenguajes que quieres soportar
+  },
+  disable_filetype = { "TelescopePrompt" },
+  fast_wrap = {
+    map = '<M-e>',
+    chars = { '{', '[', '(', '"', "'" },
+    pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], '%s+', ''),
+    offset = 0, -- Desplazamiento desde el carácter actual
+    end_key = '$',
+    keys = 'qwertyuiopzxcvbnmasdfghjkl',
+    check_comma = true,
+    highlight = 'Search',
+    highlight_grey='Comment'
+  },
+})
+
+-- Integrar nvim-autopairs con nvim-cmp
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done({ map_char = { tex = '' } })
+)
 
 
 

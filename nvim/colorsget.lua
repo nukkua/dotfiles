@@ -83,3 +83,13 @@ vim.api.nvim_set_hl(0, "TSHTMLTagName", { fg = palette.color4 })
 
 
 vim.api.nvim_set_hl(0, "TSSvelteTag", { fg = palette.color4 })
+
+
+
+-- -- Fondo del menú de autocompletado
+-- vim.api.nvim_set_hl(0, "Pmenu", { bg = palette.color14, fg = palette.color0 }) -- Esto será un fondo marrón oscuro con texto blanco-rosado claro.
+-- -- Fondo del elemento seleccionado en el menú de autocompletado
+-- vim.api.nvim_set_hl(0, "PmenuSel", { bg = palette.color9 }) -- Esto será un fondo rosa-azulado claro.
+
+
+
