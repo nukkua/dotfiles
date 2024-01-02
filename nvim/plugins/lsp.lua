@@ -15,6 +15,13 @@ end)
 require('mason').setup({})
 require('mason-lspconfig').setup({
 	ensure_installed = {
+		'kotlin_language_server',
+		'ltex',
+		'htmx',
+		'clangd',
+		'emmet_ls',
+		'graphql',
+		'astro',
 		'svelte',
 		'gopls',
 		'lua_ls',
@@ -31,7 +38,9 @@ require('mason-lspconfig').setup({
 		'tsserver',
 		'marksman',
 		'taplo',
-		'yamlls'
+		'yamlls',
+		'tailwindcss',
+		'sqlls',
 	},
 	handlers = {
 		lsp.default_setup
@@ -40,6 +49,10 @@ require('mason-lspconfig').setup({
 
 local lspconfig = require('lspconfig')
 lspconfig.omnisharp.setup({})
+
+
+lspconfig.tsserver.setup({
+})
 
 local cmp = require('cmp')
 local cmp_action = lsp.cmp_action()

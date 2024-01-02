@@ -74,6 +74,11 @@ require('packer').startup(function(use)
 
 
 end)
+-- Cursor
+-- vim.opt.guicursor = "n-v-sm:block"
+-- netrw
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
 -- vim.cmd[[colorscheme tokyonight]]
 vim.cmd[[set background=dark]]
 vim.cmd[[ hi Normal guibg=NONE ctermbg=NONE ]]
@@ -153,6 +158,5 @@ cmp.event:on(
   'confirm_done',
   cmp_autopairs.on_confirm_done({ map_char = { tex = '' } })
 )
-
 
 
