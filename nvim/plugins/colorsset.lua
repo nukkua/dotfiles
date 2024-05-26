@@ -38,6 +38,11 @@ M.colors = {
     color15 = "#eacfda",
 }
 
+
+M.colors.color16 = "#507d2a" -- Verde oliva
+M.colors.color17 = "#cc4f39" -- Terracota
+
+
 M.palette = {
     none = M.colors.none,
     bg = M.colors.none,
@@ -67,4 +72,6 @@ M.palette = {
     remove = {fg = M.colors.color9 },
 }
 
+M.palette.color16 = M.colors.color16
+M.palette.color17 = M.colors.color17
 return M

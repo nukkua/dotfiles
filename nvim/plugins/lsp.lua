@@ -4,7 +4,7 @@ lsp.on_attach(function(client, bufnr)
 	local opts = { buffer = bufnr, remap = false }
 	--lsp.default_keymaps({buffer = bufnr})
 
-	vim.keymap.set('n', '<leader>=', vim.lsp.buf.format, opts)
+	vim.keymap.set('n', '<leader>e', vim.lsp.buf.format, opts)
 
 	vim.keymap.set('n', '<leader>vd', function()
 	end, opts)
@@ -16,9 +16,10 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
 	ensure_installed = {
 		'kotlin_language_server',
+		'asm_lsp',
 		'ltex',
 		'htmx',
-		'clangd',
+		'bashls',
 		'emmet_ls',
 		'graphql',
 		'astro',
@@ -40,7 +41,12 @@ require('mason-lspconfig').setup({
 		'taplo',
 		'yamlls',
 		'tailwindcss',
+		'prismals',
 		'sqlls',
+		'cmake',
+		'zls',
+		'jqls',
+		'intelephense',
 	},
 	handlers = {
 		lsp.default_setup
@@ -48,11 +54,27 @@ require('mason-lspconfig').setup({
 })
 
 local lspconfig = require('lspconfig')
+lspconfig.astro.setup({})
+require 'lspconfig'.intelephense.setup {
+	filetypes = { "php", "blade" },
+	settings = {
+		intelephense = {
+			files = {
+				associations = { "*.php", "*.blade.php" }, -- Associating .blade.php files as well
+				maxSize = 5000000,
+			},
+		},
+	},
+}
 lspconfig.omnisharp.setup({})
+lspconfig.dartls.setup({})
+lspconfig.clangd.setup({
+	init_options = {
+		fallbackFlags = { '--std=c++23' }
+	},
 
-
-lspconfig.tsserver.setup({
 })
+lspconfig.tsserver.setup({})
 
 local cmp = require('cmp')
 local cmp_action = lsp.cmp_action()

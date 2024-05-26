@@ -26,6 +26,14 @@ require'nvim-web-devicons'.setup {
       warning = "",
       error = "",
   },-- tu configuración aquí
+strict = true,
+	override_by_extension = {
+		astro = {
+			icon = "",
+			color = "#EF8547",
+			name = "astro",
+		},
+	},
 }
 
 
